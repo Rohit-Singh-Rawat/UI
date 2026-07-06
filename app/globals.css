@@ -1,26 +1,54 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.205 0 0);
+  --muted: oklch(0.94 0 0);
+  --muted-foreground: oklch(0.52 0 0);
+  --border: oklch(0.88 0 0);
+  /* Accent: "light moving across glass" — used only for wordmark, active states, focus rings */
+  --accent: oklch(0.62 0.11 265);
+  --accent-from: oklch(0.72 0.12 250);
+  --accent-to: oklch(0.78 0.1 320);
+  --ring: oklch(0.62 0.11 265);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.93 0 0);
+  --muted: oklch(0.21 0 0);
+  --muted-foreground: oklch(0.62 0 0);
+  --border: oklch(0.27 0 0);
+  --accent: oklch(0.75 0.12 265);
+  --accent-from: oklch(0.78 0.12 250);
+  --accent-to: oklch(0.82 0.1 320);
+  --ring: oklch(0.75 0.12 265);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-satoshi);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Motion system — must mirror registry/aster/lib/motion-tokens.ts */
+  --motion-dur-instant: 50ms;
+  --motion-dur-fast: 120ms;
+  --motion-dur-base: 200ms;
+  --motion-dur-slow: 320ms;
+  --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
 }

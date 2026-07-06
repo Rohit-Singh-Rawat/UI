@@ -1,0 +1,82 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "@aster",
+  "homepage": "http://localhost:3000",
+  "items": [
+    {
+      "name": "cn",
+      "type": "registry:lib",
+      "title": "cn",
+      "description": "Class name merge utility (clsx + tailwind-merge).",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/aster/lib/cn.ts",
+          "type": "registry:lib",
+          "target": "@lib/cn.ts"
+        }
+      ]
+    },
+    {
+      "name": "motion-tokens",
+      "type": "registry:lib",
+      "title": "Motion Tokens",
+      "description": "Named durations, easings, and spring presets — the motion system's source of truth.",
+      "files": [
+        {
+          "path": "registry/aster/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "@lib/motion-tokens.ts"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "motion-dur-instant": "50ms",
+          "motion-dur-fast": "120ms",
+          "motion-dur-base": "200ms",
+          "motion-dur-slow": "320ms",
+          "motion-ease-out": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "motion-ease-in-out": "cubic-bezier(0.65, 0, 0.35, 1)"
+        }
+      }
+    },
+    {
+      "name": "use-press",
+      "type": "registry:hook",
+      "title": "usePress",
+      "description": "Press interaction system: pointer and keyboard press with cancel semantics.",
+      "files": [
+        {
+          "path": "registry/aster/hooks/use-press.ts",
+          "type": "registry:hook",
+          "target": "@hooks/use-press.ts"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "A button engineered as an interaction system — press physics, keyboard parity, motion tokens.",
+      "categories": ["actions"],
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": [
+        "@aster/cn",
+        "@aster/motion-tokens",
+        "@aster/use-press"
+      ],
+      "files": [
+        {
+          "path": "registry/aster/ui/button/button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/button/button.tsx"
+        },
+        {
+          "path": "registry/aster/ui/button/use-button.ts",
+          "type": "registry:ui",
+          "target": "@ui/button/use-button.ts"
+        }
+      ]
+    }
+  ]
+}
