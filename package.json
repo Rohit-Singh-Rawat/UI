@@ -4,15 +4,24 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "bun scripts/validate-registry.ts && shadcn build && next build",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "registry:build": "bun scripts/validate-registry.ts && shadcn build"
   },
   "dependencies": {
+    "@base-ui/react": "^1.6.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "motion": "^12.42.2",
     "next": "16.2.10",
+    "next-mdx-remote": "^6.0.0",
+    "next-themes": "^0.4.6",
+    "prism-react-renderer": "^2.4.1",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
@@ -21,6 +30,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
+    "shadcn": "^4.13.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
