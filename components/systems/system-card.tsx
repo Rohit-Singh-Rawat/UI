@@ -41,7 +41,7 @@ export function SystemCard({ title, href, blueprint }: SystemCardProps) {
   return (
     <Link
       href={href}
-      className={`group block ${CARD_CLASS} outline-none transition-all duration-(--motion-dur-fast) ease-(--motion-ease-out) hover:-translate-y-[2px] hover:bg-muted/60 hover:shadow-sm hover:shadow-foreground/5 focus-visible:ring-2 focus-visible:ring-ring focus-visible:-translate-y-[2px] motion-reduce:transition-none motion-reduce:transform-none`}
+      className={`group block ${CARD_CLASS} outline-none transition-colors duration-(--motion-dur-fast) ease-(--motion-ease-out) hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none`}
     >
       {body}
     </Link>

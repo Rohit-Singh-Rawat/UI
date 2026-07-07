@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SidebarNav } from "@/components/docs/sidebar-nav";
+import { MobileNav } from "@/components/docs/mobile-nav";
 import { Logo } from "@/components/logo/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { plannedSystems } from "@/lib/planned-systems";
@@ -23,28 +24,7 @@ export default function DocsLayout({
           <ThemeToggle />
         </div>
         {/* the sidebar is desktop-only | give mobile a way between systems */}
-        <nav aria-label="Systems" className="-mx-1 overflow-x-auto">
-          <ul className="flex items-center gap-1 px-1">
-            <li>
-              <Link
-                href="/systems"
-                className="block whitespace-nowrap rounded-full px-3 py-1.5 text-xs text-foreground/75 outline-none transition-colors duration-(--motion-dur-fast) hover:bg-muted/60 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                All systems
-              </Link>
-            </li>
-            {built.map((entry) => (
-              <li key={entry.slug}>
-                <Link
-                  href={`/systems/${entry.slug}`}
-                  className="block whitespace-nowrap rounded-full bg-muted/40 px-3 py-1.5 text-xs text-foreground/75 outline-none transition-colors duration-(--motion-dur-fast) hover:bg-muted/60 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  {entry.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <MobileNav built={built} />
       </header>
 
       {/* left sidebar panel */}

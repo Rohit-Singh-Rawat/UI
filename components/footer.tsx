@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/logo/logo";
+import { GITHUB_URL } from "@/lib/site";
 
 export function Footer() {
   const [height, setHeight] = useState(0);
@@ -49,7 +50,7 @@ export function Footer() {
                 </Link>
                 <a
                   className="cursor-pointer px-3 py-1 rounded-sm italic bg-white/10 outline-none transition-colors duration-(--motion-dur-base) hover:bg-white/20 hover:text-white focus-visible:ring-2 focus-visible:ring-white/60"
-                  href="https://github.com/Rohit-Singh-Rawat/aster.sys"
+                  href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

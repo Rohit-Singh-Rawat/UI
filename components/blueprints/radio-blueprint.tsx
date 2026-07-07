@@ -1,3 +1,4 @@
+import { useId } from "react";
 import {
   Blueprint,
   BP_HIDE_ON_MORPH,
@@ -11,11 +12,12 @@ import {
 
 export function RadioBlueprint() {
   const theme = blueprintTheme;
+  const patternId = useId();
   return (
     <Blueprint>
       <defs>
         <pattern
-          id="bp-hatch-radio"
+          id={`bp-hatch-radio-${patternId}`}
           patternUnits="userSpaceOnUse"
           width="4"
           height="4"
@@ -50,7 +52,7 @@ export function RadioBlueprint() {
           r={6.5}
           stroke="currentColor"
           strokeWidth={1}
-          fill="url(#bp-hatch-radio)"
+          fill={`url(#bp-hatch-radio-${patternId})`}
           className="opacity-60 origin-[70px_50px] transition-[fill,stroke,opacity,scale] duration-(--motion-dur-base) ease-(--motion-ease-out) group-hover:fill-current group-hover:stroke-transparent group-hover:opacity-0 group-hover:scale-[0.5] group-hover:delay-[300ms] motion-reduce:transition-none"
         />
         <text
@@ -83,7 +85,7 @@ export function RadioBlueprint() {
           r={6.5}
           stroke="currentColor"
           strokeWidth={1}
-          fill="url(#bp-hatch-radio)"
+          fill={`url(#bp-hatch-radio-${patternId})`}
           className="opacity-0 origin-[70px_90px] scale-[0.5] transition-[fill,stroke,opacity,scale] duration-(--motion-dur-base) ease-(--motion-ease-out) group-hover:fill-current group-hover:stroke-transparent group-hover:opacity-100 group-hover:scale-[1] group-hover:delay-[300ms] motion-reduce:transition-none"
         />
         <text

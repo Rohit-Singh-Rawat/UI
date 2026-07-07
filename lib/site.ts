@@ -6,6 +6,16 @@ export const SITE_NAME = "aster";
 export const SITE_TITLE = "aster | interaction systems";
 export const SITE_DESCRIPTION =
   "Components are easy to copy. Interaction isn't. Primitives engineered as interaction systems.";
+
+if (
+  process.env.NODE_ENV === "production" &&
+  !process.env.NEXT_PUBLIC_SITE_URL
+) {
+  throw new Error(
+    "NEXT_PUBLIC_SITE_URL must be set in production environment.",
+  );
+}
+
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export const GITHUB_REPO = "Rohit-Singh-Rawat/aster.sys";

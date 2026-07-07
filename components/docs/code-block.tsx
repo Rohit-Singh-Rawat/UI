@@ -13,7 +13,7 @@ export function CodeBlock({
     <Highlight theme={themes.oneDark} code={code.trimEnd()} language={language}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
-          className={`${className} max-h-96 overflow-auto rounded-lg border border-border p-4 text-[13px] leading-relaxed`}
+          className={`${className} max-h-96 overflow-auto rounded-lg border border-border p-4 text-xs leading-relaxed`}
           style={{ ...style }}
         >
           {tokens.map((line, lineIndex) => (

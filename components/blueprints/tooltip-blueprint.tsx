@@ -43,7 +43,7 @@ export function TooltipBlueprint() {
         </text>
       </g>
 
-      <g className="transition-transform duration-(--motion-dur-slow) ease-(--motion-ease-out) group-hover:-translate-y-[6px] motion-reduce:transition-none">
+      <g className="transition-transform duration-(--motion-dur-slow) ease-(--motion-ease-out) group-hover:-translate-y-[6px] group-hover:delay-200 motion-reduce:transition-none">
         <rect
           x={45}
           y={32}

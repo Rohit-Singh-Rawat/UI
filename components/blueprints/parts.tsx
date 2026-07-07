@@ -136,7 +136,11 @@ export function DimH({
   const theme = blueprintTheme;
   return (
     <g>
-      <g stroke="currentColor" strokeWidth={theme.guide.strokeWidth} opacity={theme.guide.dimOpacity}>
+      <g
+        stroke="currentColor"
+        strokeWidth={theme.guide.strokeWidth}
+        opacity={theme.guide.dimOpacity}
+      >
         <line x1={x1} y1={y - 3} x2={x1} y2={y + 3} />
         <line x1={x2} y1={y - 3} x2={x2} y2={y + 3} />
         <line x1={x1} y1={y} x2={x2} y2={y} />
@@ -167,7 +171,11 @@ export function DimV({
   const theme = blueprintTheme;
   return (
     <g>
-      <g stroke="currentColor" strokeWidth={theme.guide.strokeWidth} opacity={theme.guide.dimOpacity}>
+      <g
+        stroke="currentColor"
+        strokeWidth={theme.guide.strokeWidth}
+        opacity={theme.guide.dimOpacity}
+      >
         <line x1={x - 3} y1={y1} x2={x + 3} y2={y1} />
         <line x1={x - 3} y1={y2} x2={x + 3} y2={y2} />
         <line x1={x} y1={y1} x2={x} y2={y2} />
@@ -283,7 +291,7 @@ export function Selection({
   h: number;
 }) {
   const theme = blueprintTheme;
-  
+
   const offset = 1;
   const sx = x - offset;
   const sy = y - offset;

@@ -113,16 +113,13 @@ body {
   }
 }
 
-/* Hide scrollbar aggressively across the whole site */
-html,
-body,
-* {
+/* Hide scrollbar selectively for decorative/marketing areas */
+.hide-scrollbars {
   scrollbar-width: none !important; /* Firefox */
   -ms-overflow-style: none !important; /* IE/Edge */
 }
 
-::-webkit-scrollbar,
-*::-webkit-scrollbar {
+.hide-scrollbars::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
   height: 0 !important;

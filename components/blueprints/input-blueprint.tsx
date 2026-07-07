@@ -12,8 +12,8 @@ import {
 
 /**
  * Drawn to a standard Input's metrics:
- * 40px tall (h-10), 12px horizontal padding, 8px radius (rounded-md),
- * 14px placeholder text | box 140×40 centered at (110, 70).
+ * 36px tall, 18px horizontal padding, 18px radius (rounded-full),
+ * 14px placeholder text | box 200x36.
  */
 
 export function InputBlueprint() {
@@ -75,6 +75,13 @@ export function InputBlueprint() {
         .group:hover .cursor-jump,
         .group:focus-visible .cursor-jump {
           animation: cursorJump 1s forwards;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .group:hover .cursor-jump,
+          .group:focus-visible .cursor-jump {
+            animation: none;
+            transform: translateX(34px);
+          }
         }
       `}</style>
       <g className="cursor-jump opacity-0 transition-opacity duration-0 group-hover:opacity-100 group-focus-visible:opacity-100">

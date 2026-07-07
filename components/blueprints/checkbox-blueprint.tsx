@@ -34,7 +34,7 @@ export function CheckboxBlueprint() {
         opacity={theme.wireframe.strokeOpacity}
         pathLength={1}
         strokeDasharray={1}
-        strokeDashoffset={0}
+        strokeDashoffset={1}
         className={`${BP_MORPH} stroke-current group-hover:animate-[bp-check-draw_400ms_var(--motion-ease-out)_400ms_both] group-hover:stroke-background motion-reduce:animate-none`}
       />
       <text

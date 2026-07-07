@@ -17,11 +17,12 @@ export function OnThisPage({ entries }: { entries: TocEntry[] }) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (observed) => {
-        for (const entry of observed) {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
-            return;
-          }
+        const intersecting = observed.filter((entry) => entry.isIntersecting);
+        if (intersecting.length > 0) {
+          intersecting.sort(
+            (a, b) => a.boundingClientRect.top - b.boundingClientRect.top,
+          );
+          setActive(intersecting[0].target.id);
         }
       },
       { rootMargin: "-15% 0px -75% 0px" },
@@ -45,6 +46,7 @@ export function OnThisPage({ entries }: { entries: TocEntry[] }) {
           <li key={entry.id}>
             <a
               href={`#${entry.id}`}
+              aria-current={active === entry.id ? "true" : undefined}
               className={`block border-l py-1 pl-3 text-sm outline-none transition-colors duration-(--motion-dur-fast) focus-visible:ring-2 focus-visible:ring-ring ${
                 active === entry.id
                   ? "border-foreground text-foreground"

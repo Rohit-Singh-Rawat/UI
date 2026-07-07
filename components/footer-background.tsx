@@ -52,7 +52,7 @@ export function FooterBackground() {
 
   return (
     <div
-      className="fixed inset-0 -z-20 pointer-events-none transition-colors duration-(--motion-dur-ambient) ease-(--motion-ease-in-out)"
+      className="fixed inset-0 -z-20 pointer-events-none transition-all duration-(--motion-dur-ambient) ease-(--motion-ease-in-out)"
       style={
         {
           opacity: mounted ? 1 : 0, // fade in to hide the initial jump if it changes

@@ -41,14 +41,22 @@ export function SystemsGrid({
           key={entry.slug}
           title={entry.title}
           href={`/systems/${entry.slug}`}
-          blueprint={blueprints[entry.slug]}
+          blueprint={
+            blueprints[entry.slug] || (
+              <div className="w-full h-full border border-dashed border-border rounded-lg" />
+            )
+          }
         />
       ))}
       {planned.map((entry) => (
         <SystemCard
           key={entry.slug}
           title={entry.title}
-          blueprint={blueprints[entry.slug]}
+          blueprint={
+            blueprints[entry.slug] || (
+              <div className="w-full h-full border border-dashed border-border rounded-lg opacity-50" />
+            )
+          }
         />
       ))}
     </div>

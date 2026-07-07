@@ -4,6 +4,7 @@ import { HeroBlueprint } from "@/components/landing/hero-blueprint";
 import { Logo } from "@/components/logo/logo";
 import { PageTransition } from "@/components/page-transition";
 import { GITHUB_REPO, GITHUB_URL } from "@/lib/site";
+import pkg from "../../package.json";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -14,6 +15,7 @@ async function getGitHubStars(): Promise<string | null> {
   try {
     const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}`, {
       next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(3000),
     });
     if (!res.ok) return null;
     const data = (await res.json()) as { stargazers_count?: number };
@@ -34,7 +36,7 @@ export default async function Home() {
             <span className="sr-only">aster</span>
             <Logo className="h-16 w-auto dark:invert sm:h-20" />
             <div className="absolute top-0 -right-8 inline-flex items-center rounded-full border border-border/50 bg-muted/30 px-2 py-0.5 text-2xs font-mono text-muted-foreground backdrop-blur-sm">
-              v0.1.0
+              v{pkg.version}
             </div>
           </div>
 
