@@ -1,3 +1,4 @@
+import { Agentation } from "agentation";
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
@@ -97,6 +98,7 @@ export default function RootLayout({
         >
           <SiteSurface>{children}</SiteSurface>
           <Footer />
+          {process.env.NODE_ENV === "development" && <Agentation />}
         </ThemeProvider>
       </body>
     </html>
