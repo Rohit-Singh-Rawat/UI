@@ -46,13 +46,23 @@ export function FooterBackground() {
     if (mounted) {
       // Sync the body background color to match the top of the gradient
       // for smooth rubber-band scrolling on macOS/iOS
+      // Sync the body background color to match the top of the gradient
+      // for smooth rubber-band scrolling on macOS/iOS
       document.body.style.backgroundColor = gradient.g1;
     }
   }, [gradient, mounted]);
 
   return (
-    <div
-      className="fixed inset-0 -z-20 pointer-events-none transition-all duration-(--motion-dur-ambient) ease-(--motion-ease-in-out)"
+    <>
+      <style suppressHydrationWarning>{`
+        :root {
+          --footer-g1: ${gradient.g1};
+          --footer-g2: ${gradient.g2};
+          --footer-g3: ${gradient.g3};
+        }
+      `}</style>
+      <div
+        className="fixed inset-0 -z-20 pointer-events-none transition-all duration-(--motion-dur-ambient) ease-(--motion-ease-in-out)"
       style={
         {
           opacity: mounted ? 1 : 0, // fade in to hide the initial jump if it changes
@@ -64,5 +74,6 @@ export function FooterBackground() {
         } as React.CSSProperties
       }
     />
+    </>
   );
 }
