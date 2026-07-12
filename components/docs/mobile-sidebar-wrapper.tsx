@@ -34,7 +34,7 @@ export function MobileSidebarWrapper({
         data-state={isOpen ? "open" : "closed"}
         style={{
           background:
-            "linear-gradient(to bottom, var(--footer-g1), var(--footer-g2), var(--footer-g3))",
+            "linear-gradient(180deg, var(--footer-g1) 20%, var(--footer-g2) 55%, var(--footer-g3) 100%)",
         }}
         aria-hidden="true"
       />
@@ -78,9 +78,7 @@ export function MobileSidebarWrapper({
                 borderRadius: 0,
               }
         }
-        // Emil Kowalski iOS drawer easing
         transition={{ ease: [0.32, 0.72, 0, 1], duration: 0.5 }}
-        inert={isMobile && isOpen ? true : undefined}
         className={`relative z-10 flex min-h-dvh w-full flex-col bg-background md:bg-transparent border border-transparent ${
           isMobile && isOpen
             ? "shadow-2xl border-border cursor-grab active:cursor-grabbing"
@@ -88,7 +86,7 @@ export function MobileSidebarWrapper({
         }`}
       >
         {/* Mobile Header */}
-        <header className="flex h-14 shrink-0 items-center justify-between px-4 md:hidden">
+        <header inert={isMobile && isOpen ? true : undefined} className="flex h-14 shrink-0 items-center justify-between px-4 md:hidden">
           <button
             onClick={() => setIsOpen((prev) => !prev)}
             aria-expanded={isOpen}
@@ -107,18 +105,23 @@ export function MobileSidebarWrapper({
               className="size-4 opacity-70 transition-opacity group-hover/button:opacity-100"
             >
               <g fill="currentColor">
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M4.25 2C2.45508 2 1 3.45508 1 5.25V10.75C1 12.5449 2.45508 14 4.25 14H11.75C13.5449 14 15 12.5449 15 10.75V5.25C15 3.45508 13.5449 2 11.75 2H4.25ZM2.5 5.5C2.5 4.39543 3.39543 3.5 4.5 3.5H11.5C12.6046 3.5 13.5 4.39543 13.5 5.5V10.5C13.5 11.6046 12.6046 12.5 11.5 12.5H4.5C3.39543 12.5 2.5 11.6046 2.5 10.5V5.5Z"
-                ></path>
+                <rect
+                  x="1.5"
+                  y="2.5"
+                  width="13"
+                  height="11"
+                  rx="1.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
                 {/* SVG inner pill - user requested fully rounded rx="3" and width scaling */}
                 <motion.rect
                   x="4"
                   y="5"
                   width="1.5"
                   height="6"
-                  rx="3"
+                  rx="0.5"
                   initial={false}
                   animate={{ scaleX: isOpen ? 3.5 / 1.5 : 1 }}
                   transition={{ ease: [0.32, 0.72, 0, 1], duration: 0.5 }}
@@ -149,7 +152,7 @@ export function MobileSidebarWrapper({
           />
         )}
 
-        <div className="min-w-0 flex-1 pb-8 md:pb-0">{children}</div>
+        <div inert={isMobile && isOpen ? true : undefined} className="min-w-0 flex-1 pb-8 md:pb-0">{children}</div>
       </motion.main>
     </div>
   );

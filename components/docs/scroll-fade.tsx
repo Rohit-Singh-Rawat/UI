@@ -36,6 +36,9 @@ export function ScrollFade({
           : `linear-gradient(to bottom, transparent, ${background})`,
         // mask-image only reads alpha, not color — the background value
         // here is just a convenient opaque stop, not a visible color.
+        WebkitMaskImage: isTop
+          ? `linear-gradient(to bottom, ${background} 50%, transparent)`
+          : `linear-gradient(to top, ${background} 50%, transparent)`,
         maskImage: isTop
           ? `linear-gradient(to bottom, ${background} 50%, transparent)`
           : `linear-gradient(to top, ${background} 50%, transparent)`,

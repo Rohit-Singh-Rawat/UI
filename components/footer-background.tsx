@@ -35,7 +35,6 @@ export function FooterBackground() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Pick a random gradient on mount to avoid hydration mismatch
     const randomGradient =
       GRADIENTS[Math.floor(Math.random() * GRADIENTS.length)];
     setGradient(randomGradient);
@@ -44,8 +43,6 @@ export function FooterBackground() {
 
   useEffect(() => {
     if (mounted) {
-      // Sync the body background color to match the top of the gradient
-      // for smooth rubber-band scrolling on macOS/iOS
       // Sync the body background color to match the top of the gradient
       // for smooth rubber-band scrolling on macOS/iOS
       document.body.style.backgroundColor = gradient.g1;
@@ -70,7 +67,7 @@ export function FooterBackground() {
           "--footer-g2": gradient.g2,
           "--footer-g3": gradient.g3,
           background:
-            "linear-gradient(180deg in oklch, var(--footer-g1) 20%, var(--footer-g2) 55%, var(--footer-g3) 100%)",
+            "linear-gradient(180deg, var(--footer-g1) 20%, var(--footer-g2) 55%, var(--footer-g3) 100%)",
         } as React.CSSProperties
       }
     />

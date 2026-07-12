@@ -11,22 +11,23 @@ interface SourceFile {
   language?: string;
 }
 
+type SourceTabsProps = {
+  files: SourceFile[];
+  /** Controlled active-tab index — omit for the uncontrolled default (most callers). */
+  active?: number;
+  onActiveChange?: (index: number) => void;
+} & (
+  | { fillHeight?: false; codeBackground?: never }
+  | { fillHeight: true; codeBackground: string }
+);
+
 export function SourceTabs({
   files,
   active: controlledActive,
   onActiveChange,
   fillHeight = false,
   codeBackground,
-}: {
-  files: SourceFile[];
-  /** Controlled active-tab index — omit for the uncontrolled default (most callers). */
-  active?: number;
-  onActiveChange?: (index: number) => void;
-  /** Stretch the code panel to fill its container — see CodeBlock. */
-  fillHeight?: boolean;
-  /** The surface this sits on, for ScrollFade to blend into — required when fillHeight. */
-  codeBackground?: string;
-}) {
+}: SourceTabsProps) {
   const [internalActive, setInternalActive] = useState(0);
   const active = controlledActive ?? internalActive;
   const setActive = onActiveChange ?? setInternalActive;
@@ -121,7 +122,7 @@ export function SourceTabs({
           code={activeFile.code}
           language={activeFile.language}
           fillHeight={fillHeight}
-          hideScrollbar={true}
+          hideScrollbar={fillHeight}
         />
       </div>
     </div>

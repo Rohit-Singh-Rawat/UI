@@ -210,26 +210,25 @@ function AnatomyBackground() {
   );
 }
 
-function AnatomyOverlayLines() {
+function OverlayLine({ id, x1, y1, x2, y2 }: { id: string, x1: number, y1: number, x2: number, y2: number }) {
   const { hovered } = useAnatomy();
-  
-  const renderLine = (id: string, x1: number, y1: number, x2: number, y2: number) => {
-    const spotlight = useSpotlight(id, { defaultOpacity: 80 });
-    return (
-      <line
-        x1={x1} y1={y1} x2={x2} y2={y2}
-        className={`${hovered === id ? "stroke-foreground" : "stroke-border"} ${spotlight.className}`}
-        style={spotlight.style}
-      />
-    );
-  };
+  const spotlight = useSpotlight(id, { defaultOpacity: 80 });
+  return (
+    <line
+      x1={x1} y1={y1} x2={x2} y2={y2}
+      className={`${hovered === id ? "stroke-foreground" : "stroke-border"} ${spotlight.className}`}
+      style={spotlight.style}
+    />
+  );
+}
 
+function AnatomyOverlayLines() {
   return (
     <g strokeWidth="1" className="pointer-events-none">
-      {renderLine("root", 70, 65, 70, 90)}
-      {renderLine("indicator", 120, 40, 120, 90)}
-      {renderLine("thumb", 162, 145, 162, 128)}
-      {renderLine("track", 220, 175, 220, 128)}
+      <OverlayLine id="root" x1={70} y1={65} x2={70} y2={90} />
+      <OverlayLine id="indicator" x1={120} y1={40} x2={120} y2={90} />
+      <OverlayLine id="thumb" x1={162} y1={145} x2={162} y2={128} />
+      <OverlayLine id="track" x1={220} y1={175} x2={220} y2={128} />
     </g>
   );
 }

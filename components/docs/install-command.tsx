@@ -39,6 +39,7 @@ function CustomDropdown({
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -46,13 +47,24 @@ function CustomDropdown({
         setOpen(false);
       }
     }
+    function handleKeyDown(event: KeyboardEvent) {
+      if (open && event.key === "Escape") {
+        setOpen(false);
+        triggerRef.current?.focus();
+      }
+    }
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [open]);
 
   return (
     <div className="relative shrink-0 h-full" ref={ref}>
       <button
+        ref={triggerRef}
         onClick={() => setOpen(!open)}
         aria-haspopup="listbox"
         aria-expanded={open}
@@ -84,7 +96,7 @@ function CustomDropdown({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -4, scale: 0.96 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute left-0 top-full mt-1.5 z-50 flex w-[130px] flex-col overflow-hidden rounded-xl border border-border bg-background p-1 shadow-xl"
+            className="absolute left-0 top-full mt-1.5 z-50 flex w-[130px] flex-col overflow-hidden squircle border border-border bg-background p-1 shadow-xl"
             role="listbox"
           >
             {PACKAGE_MANAGERS.map((pm) => (
@@ -95,8 +107,9 @@ function CustomDropdown({
                 onClick={() => {
                   onChange(pm);
                   setOpen(false);
+                  triggerRef.current?.focus();
                 }}
-                className={`relative flex w-full cursor-default select-none items-center gap-2 rounded-lg px-2 py-1.5 text-sm outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:bg-muted focus-visible:text-foreground focus-ring ${
+                className={`relative flex w-full cursor-default select-none items-center gap-2 squircle px-2 py-1.5 text-sm outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:bg-muted focus-visible:text-foreground focus-ring ${
                   pm === value ? "bg-muted font-medium text-foreground" : "text-foreground/80"
                 }`}
               >
@@ -118,9 +131,9 @@ export function InstallCommand({ name }: { name: string }) {
   return (
     <div className="flex h-9 w-full sm:w-auto max-w-full items-center self-start squircle bg-muted p-1 font-mono text-xs">
       <CustomDropdown value={pm} onChange={setPm} />
-      <span className="flex flex-1 min-w-0 h-full items-center justify-center truncate px-3 text-foreground">
-        {command}
-      </span>
+      <div className="flex flex-1 min-w-0 h-full items-center justify-center px-3 text-foreground">
+        <span className="truncate">{command}</span>
+      </div>
       <CopyButton
         value={command}
         className="flex shrink-0 h-full w-auto items-center justify-center squircle px-2.5 outline-none transition-colors duration-(--motion-dur-fast) hover:bg-background/60 focus-ring"

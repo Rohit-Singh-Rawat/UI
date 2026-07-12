@@ -107,6 +107,7 @@ function useDitherEngine(
 
   const tempCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const sourceDataRef = useRef<Uint8ClampedArray | null>(null);
+  const currentRunRef = useRef(0);
 
   useEffect(() => {
     if (!imageLoaded || !imgRef.current || !canvasRef.current) return;
@@ -149,34 +150,50 @@ function useDitherEngine(
     const factor = (259 * (c + 255)) / (255 * (259 - c));
     const tBias = (deferredThreshold - 50) * -2.55;
 
-    for (let y = 0; y < renderH; y++) {
-      for (let x = 0; x < renderW; x++) {
-        const i = (y * renderW + x) * 4;
+    const runId = ++currentRunRef.current;
+    let currentY = 0;
+    const CHUNK_SIZE = 40; // rows per frame
 
-        let r = sourceData[i];
-        let g = sourceData[i + 1];
-        let b = sourceData[i + 2];
+    function processChunk() {
+      if (currentRunRef.current !== runId) return;
 
-        r = factor * (r - 128) + 128;
-        g = factor * (g - 128) + 128;
-        b = factor * (b - 128) + 128;
+      const maxY = Math.min(renderH, currentY + CHUNK_SIZE);
+      for (let y = currentY; y < maxY; y++) {
+        for (let x = 0; x < renderW; x++) {
+          const i = (y * renderW + x) * 4;
 
-        let lum = 0.299 * r + 0.587 * g + 0.114 * b;
-        lum += tBias;
+          let r = sourceData[i];
+          let g = sourceData[i + 1];
+          let b = sourceData[i + 2];
 
-        const bayerVal = BAYER_PRECOMPUTED[y % 4][x % 4];
-        const finalVal = lum > bayerVal ? 255 : 0;
+          r = factor * (r - 128) + 128;
+          g = factor * (g - 128) + 128;
+          b = factor * (b - 128) + 128;
 
-        data[i] = finalVal;
-        data[i + 1] = finalVal;
-        data[i + 2] = finalVal;
-        data[i + 3] = 255;
+          let lum = 0.299 * r + 0.587 * g + 0.114 * b;
+          lum += tBias;
+
+          const bayerVal = BAYER_PRECOMPUTED[y % 4][x % 4];
+          const finalVal = lum > bayerVal ? 255 : 0;
+
+          data[i] = finalVal;
+          data[i + 1] = finalVal;
+          data[i + 2] = finalVal;
+          data[i + 3] = 255;
+        }
+      }
+
+      currentY = maxY;
+      if (currentY < renderH) {
+        requestAnimationFrame(processChunk);
+      } else {
+        tCtx.putImageData(imgData, 0, 0);
+        ctx!.imageSmoothingEnabled = false;
+        ctx!.drawImage(tempCanvas, 0, 0, renderW, renderH, 0, 0, W, H);
       }
     }
 
-    tCtx.putImageData(imgData, 0, 0);
-    ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(tempCanvas, 0, 0, renderW, renderH, 0, 0, W, H);
+    processChunk();
   }, [
     imageLoaded,
     imageLoadId,

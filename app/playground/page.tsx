@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { experiments } from "@/components/playground/experiments";
 import { ThemeConfigurator } from "@/components/playground/theme-configurator";
-import { ThemeProvider } from "@/components/playground/theme-context";
+import { PlaygroundThemeProvider } from "@/components/playground/theme-context";
 
 export const metadata: Metadata = {
   title: "Playground",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function PlaygroundPage() {
   return (
-    <ThemeProvider>
+    <PlaygroundThemeProvider>
       <ThemeConfigurator />
       <div className="flex flex-1 flex-col items-center px-6 py-16">
         <div className="w-full max-w-2xl">
@@ -41,6 +41,6 @@ export default function PlaygroundPage() {
           </ul>
         </div>
       </div>
-    </ThemeProvider>
+    </PlaygroundThemeProvider>
   );
 }

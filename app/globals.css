@@ -25,18 +25,6 @@
   --ring: oklch(0.581 0.192 295);
 }
 
-/* Permanent global solution: Force dark mode variables ONLY on mobile without JS hydration mismatches */
-@media (max-width: 767px) {
-  .mobile-dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.93 0 0);
-    --muted: oklch(0.21 0 0);
-    --muted-foreground: oklch(0.62 0 0);
-    --border: oklch(0.27 0 0);
-    --accent: oklch(0.75 0.12 265);
-    --ring: oklch(0.581 0.192 295);
-  }
-}
 
 @theme inline {
   --color-background: var(--background);

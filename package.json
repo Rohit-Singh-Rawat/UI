@@ -13,6 +13,7 @@
   "dependencies": {
     "@base-ui/react": "^1.6.0",
     "@toolwind/corner-shape": "^0.0.8-3",
+    "agentation": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "hugeicons-react": "^0.4.0",
@@ -31,7 +32,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "agentation": "^3.0.2",
     "babel-plugin-react-compiler": "1.0.0",
     "shadcn": "^4.13.0",
     "tailwindcss": "^4",

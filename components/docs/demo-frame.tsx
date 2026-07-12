@@ -1,7 +1,7 @@
 "use client";
 
 import { type ReactNode, useState, useId } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { CodeBlock } from "./code-block-lazy";
 
 export function DemoFrame({

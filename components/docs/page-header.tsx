@@ -114,9 +114,10 @@ export function PageHeaderActions() {
 
   const handleCopy = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    // TODO: Actually implement page copying logic
-    setCopied(true);
-    timeoutRef.current = setTimeout(() => setCopied(false), 2000);
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopied(true);
+      timeoutRef.current = setTimeout(() => setCopied(false), 2000);
+    }).catch(console.error);
   };
 
   return (

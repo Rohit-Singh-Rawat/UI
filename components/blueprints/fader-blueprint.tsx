@@ -18,9 +18,7 @@ import {
  * component's grabbed-state feedback), since it's the part that makes a
  * Fader a Fader rather than a generic range input.
  */
-
-const FILL_EDGE = 112; // track x (40) + fill width (72)
-
+// (unused constant removed)
 export function FaderBlueprint() {
   const theme = blueprintTheme;
   return (

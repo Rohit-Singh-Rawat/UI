@@ -38,7 +38,6 @@ export function CopyButton({ value, className, ...props }: CopyButtonProps) {
       const text = typeof value === "function" ? await value() : value;
       await navigator.clipboard.writeText(text);
       setCopied(true);
-      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
       copyTimeoutRef.current = setTimeout(() => setCopied(false), 2000);
     } catch {
       // Ignore

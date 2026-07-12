@@ -91,7 +91,9 @@ export function CodeSheet() {
     const a = document.createElement("a");
     a.href = url;
     a.download = activeFile.name;
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
 
