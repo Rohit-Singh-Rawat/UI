@@ -27,10 +27,26 @@ export async function generateMetadata({
   if (!primitive || primitive.layer !== "system") {
     return { title: "Not found" };
   }
+
+  const ogUrl = `/images/og/systems/${slug}.png`;
+
   return {
     title: primitive.title,
     description: primitive.description,
     alternates: { canonical: `/systems/${slug}` },
+    openGraph: {
+      images: [
+        {
+          url: ogUrl,
+          width: 1200,
+          height: 630,
+          alt: primitive.title,
+        },
+      ],
+    },
+    twitter: {
+      images: [ogUrl],
+    },
   };
 }
 

@@ -39,10 +39,26 @@ export async function generateMetadata({
   if (!primitive || primitive.layer !== "component") {
     return { title: "Not found" };
   }
+  
+  const ogUrl = `/images/og/components/${slug}.png`;
+  
   return {
     title: primitive.title,
     description: primitive.description,
     alternates: { canonical: `/components/${slug}` },
+    openGraph: {
+      images: [
+        {
+          url: ogUrl,
+          width: 1200,
+          height: 630,
+          alt: primitive.title,
+        },
+      ],
+    },
+    twitter: {
+      images: [ogUrl],
+    },
   };
 }
 
