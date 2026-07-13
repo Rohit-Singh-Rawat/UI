@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { experiments } from "@/components/playground/experiments";
+import { FaderShowcase } from "@/components/playground/fader-showcase";
 import { ThemeConfigurator } from "@/components/playground/theme-configurator";
 import { PlaygroundThemeProvider } from "@/components/playground/theme-context";
 
@@ -39,6 +40,10 @@ export default function PlaygroundPage() {
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className="flex h-[100vh] w-full max-w-4xl items-center justify-center">
+          <FaderShowcase />
         </div>
       </div>
     </PlaygroundThemeProvider>

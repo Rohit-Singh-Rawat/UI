@@ -21,7 +21,7 @@ import { Fader } from "@/components/ui/fader/fader";
 
 ## What it is
 
-A parameter control whose track doubles as the value display. The label
+A parameter control whose track doubles as the value display: the label
 and live value sit inside the fill, so the edge of the fill is always the
 reading. It's built for tuning a value while watching it change, not for
 picking one value in a form.
@@ -45,11 +45,6 @@ won't change.
 
 ## Interaction spec
 
-A parameter fader, not a bare range input: the control doubles as the
-value display. Label and value live inside the track, and the accent
-fill's edge is the reading. A thin bar rides that edge as the grab
-signifier, so eye travel between control and value is zero.
-
 Two value grammars, explicit in the API and never merged implicitly:
 
 - **Continuous** (default): "about this much." Drag is 1:1 with the
@@ -61,14 +56,7 @@ Two value grammars, explicit in the API and never merged implicitly:
   Coarse-step sliders (≤ 12 stops) behave as detents too; snappy is one
   behavior with two ways to declare it.
 
-The full timeline: hover brightens the fill one surface step (fine pointers
-only); grab shows `cursor: grabbing` and grows the bar slightly; drag past
-either end stretches the track with damped resistance and springs it home.
-Boundary reached, input heard, no more range. The bar dims and squeezes
-while passing under the in-track text so the reading stays legible, and
-re-emerges on the other side. Every transition is interruptible: springs
-retarget mid-flight with carried velocity.
-
+- Hover → fill brightens one step (fine pointers only)
 - Pointer down on track → grab; drag → value follows 1:1 (or hops detents)
 - Click → value teleports; the fill springs to it
 - Drag past an end → elastic stretch, spring home on release or re-entry
@@ -82,10 +70,8 @@ retarget mid-flight with carried velocity.
   semantics, no ARIA re-implementation.
 - One tab stop (the Apple HIG model): <Kbd>Tab</Kbd> focuses the slider,
   arrows adjust. Keyboard changes are never animated.
-- The visual label/value overlay is `aria-hidden`: the value display is an
-  `output` element (an implicit live region), so leaving it in the
-  accessibility tree announced every change twice. The input already owns
-  name and value; the hidden label still resolves through
+- The visual label/value overlay is `aria-hidden` to avoid double
+  announcements; the input already owns the accessible name and value via
   `aria-labelledby`.
 - `aria-valuetext` includes the unit, so a screen reader hears "65%", never
   a bare "65".
@@ -101,16 +87,13 @@ retarget mid-flight with carried velocity.
 
 Travel (click-jump, detent hops) runs on `springs.settle` with carried
 velocity: a second input mid-flight retargets the same spring instead of
-cutting. Drag is 1:1 and never animated; keyboard is never animated. Hover
-and drag tint the fill at `--motion-dur-fast`. The elastic overdrag is
-transform-only (`scaleX`, ≤ 8px, exponential damping) and springs home.
+cutting. Drag and keyboard input are never animated. Hover and drag tint
+the fill at `--motion-dur-fast`. The elastic overdrag is transform-only
+(`scaleX`, ≤ 8px, exponential damping) and springs home.
+
 Under `prefers-reduced-motion`, springs become jumps, the bar keeps its
 opacity feedback but drops scale, and the overdrag stretch is disabled
 entirely.
-
-The fill animates `width` rather than a transform, which keeps the bar a
-layout child of the fill so the two never drift apart. The tradeoff is a
-bounded per-frame layout cost on one absolutely-positioned element.
 
 ## API
 

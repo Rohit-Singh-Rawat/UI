@@ -29,12 +29,7 @@ function toBezier(cubicBezier: string): [number, number, number, number] {
   return [x1, y1, x2, y2];
 }
 
-const SHAPE_DURATION = toSeconds(durations.slow);
-const SHAPE_EASE = toBezier(easings.inOut);
-const FADE_OUT_DURATION = toSeconds(durations.fast);
-const FADE_IN_DURATION = toSeconds(durations.base);
 const CONTENT_EASE = toBezier(easings.out);
-const FADE_IN_DELAY = SHAPE_DURATION * 0.4;
 
 const pressClasses = cn(
   "transition-transform duration-(--motion-dur-fast) ease-(--motion-ease-out)",
@@ -79,17 +74,23 @@ export function ThemeConfigurator() {
   }, [isOpen]);
 
   const shapeTransition = {
-    duration: shouldReduceMotion ? 0 : SHAPE_DURATION,
-    ease: SHAPE_EASE,
+    type: "spring" as const,
+    bounce: 0.1,
+    duration: shouldReduceMotion ? 0 : 0.4,
   };
   const fadeOutTransition = {
-    duration: shouldReduceMotion ? 0 : FADE_OUT_DURATION,
+    duration: shouldReduceMotion ? 0 : 0.1,
     ease: CONTENT_EASE,
   };
-  const fadeInTransition = {
-    duration: shouldReduceMotion ? 0 : FADE_IN_DURATION,
+  const panelFadeInTransition = {
+    duration: shouldReduceMotion ? 0 : 0.25,
     ease: CONTENT_EASE,
-    delay: shouldReduceMotion ? 0 : FADE_IN_DELAY,
+    delay: shouldReduceMotion ? 0 : 0.1,
+  };
+  const triggerFadeInTransition = {
+    duration: shouldReduceMotion ? 0 : 0.25,
+    ease: CONTENT_EASE,
+    delay: shouldReduceMotion ? 0 : 0.25,
   };
   const contentFilter = shouldReduceMotion
     ? { blurred: "blur(0px)", clear: "blur(0px)" }
@@ -113,11 +114,12 @@ export function ThemeConfigurator() {
 
       <motion.div
         layout
-        transition={{ layout: shapeTransition }}
+        initial={false}
+        animate={{ borderRadius: isOpen ? 16 : 22 }}
+        transition={{ layout: shapeTransition, borderRadius: shapeTransition }}
         className={cn(
-          "fixed bottom-6 right-6 z-50 flex flex-col items-end justify-end overflow-hidden",
+          "fixed bottom-10 right-68 z-50 flex flex-col items-end justify-end overflow-hidden",
           "bg-foreground text-background shadow-2xl will-change-transform pointer-events-auto",
-          isOpen ? "rounded-2xl" : "rounded-full",
           isOpen
             ? "border border-black/10 dark:border-white/10"
             : "border border-transparent",
@@ -138,7 +140,7 @@ export function ThemeConfigurator() {
               animate={{
                 opacity: 1,
                 filter: contentFilter.clear,
-                transition: fadeInTransition,
+                transition: triggerFadeInTransition,
               }}
               exit={{
                 opacity: 0,
@@ -163,7 +165,7 @@ export function ThemeConfigurator() {
               animate={{
                 opacity: 1,
                 filter: contentFilter.clear,
-                transition: fadeInTransition,
+                transition: panelFadeInTransition,
               }}
               exit={{
                 opacity: 0,

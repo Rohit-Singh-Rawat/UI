@@ -17,6 +17,13 @@ import { barCenterFor, fillEdgePx } from "./geometry";
 const DISCRETE_LIMIT = 12;
 /** Safe zone around in-track text: the bar starts dodging this early (px). */
 const DODGE_ZONE = 6;
+/**
+ * PageUp/PageDown's index jump on a snap-points grammar, as a fraction of
+ * the point count (min 1). Points move in index units, not raw value —
+ * Base UI's large-step is a raw value jump and can overshoot a sparse
+ * points array from most positions.
+ */
+const LARGE_STEP_FRACTION = 4;
 
 /**
  * Display decimals = the step's own decimal precision (capped at 3). Derived
@@ -353,12 +360,25 @@ export function useFader(options: UseFaderOptions) {
     if (details.reason === "keyboard") {
       stopSettle();
       if (sortedPoints) {
-        // Arrows travel between points, not raw steps.
+        // Every key travels in point indices; the key itself decides the
+        // jump, not raw's magnitude (see LARGE_STEP_FRACTION).
+        const current = nearestIndex(sortedPoints, value);
+        const key = details.event.key;
         let idx: number;
-        if (raw >= max) idx = sortedPoints.length - 1;
-        else if (raw <= min) idx = 0;
-        else {
-          const current = nearestIndex(sortedPoints, value);
+        if (key === "Home") idx = 0;
+        else if (key === "End") idx = sortedPoints.length - 1;
+        else if (key === "PageUp" || key === "PageDown") {
+          const jump = Math.max(
+            1,
+            Math.round(sortedPoints.length / LARGE_STEP_FRACTION),
+          );
+          idx = Math.min(
+            sortedPoints.length - 1,
+            Math.max(0, current + (key === "PageUp" ? jump : -jump)),
+          );
+        } else {
+          // Arrow keys: single-point step; direction from Base UI's raw
+          // delta, which is already RTL-correct on its side.
           idx = Math.min(
             sortedPoints.length - 1,
             Math.max(0, current + (raw > value ? 1 : -1)),

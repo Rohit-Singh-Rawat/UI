@@ -120,8 +120,8 @@ function useDitherEngine(
     const imgRatio = imgRef.current.width / imgRef.current.height;
     const W = Math.floor(H * imgRatio);
 
-    canvas.width = W;
-    canvas.height = H;
+    if (canvas.width !== W) canvas.width = W;
+    if (canvas.height !== H) canvas.height = H;
 
     const scale = Math.max(1, Math.floor(deferredPixelSize));
     const renderW = Math.floor(W / scale);

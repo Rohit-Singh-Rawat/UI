@@ -58,11 +58,11 @@ const sizeVariants = {
 
 const toneVariants = {
   accent: {
-    fill: "bg-accent/15 pointer-fine:group-hover/fader:bg-accent/20 group-data-dragging/control:bg-accent/25",
+    fill: "border border-accent/20 bg-accent/15 pointer-fine:group-hover/fader:bg-accent/20 group-data-dragging/control:bg-accent/25",
     bar: "bg-accent",
   },
   neutral: {
-    fill: "bg-foreground/10 pointer-fine:group-hover/fader:bg-foreground/15 group-data-dragging/control:bg-foreground/20",
+    fill: "border border-foreground/10 bg-foreground/10 pointer-fine:group-hover/fader:bg-foreground/15 group-data-dragging/control:bg-foreground/20",
     bar: "bg-foreground/80",
   },
 } as const;
